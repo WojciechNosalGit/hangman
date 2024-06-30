@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="js/Keyboard.js"></script>
+    <script defer src="js/Password.js"></script>
+    <script defer src="js/Statistics.js"></script>
+    <script defer src="js/Draw.js"></script>
+    <script defer src="js/Game.js"></script>
+    <audio id="click-sound" src="./sounds/click.wav" preload="auto"></audio>
+    <audio id="lost-chanse-sound" src="./sounds/lost-chanse.wav" preload="auto"></audio>
+    <audio id="next-round-sound" src="./sounds/next-round.ogg" preload="auto"></audio>
+    <audio id="game-over-sound" src="./sounds/game-over.wav" preload="auto"></audio>
+    <audio id="start-game-sound" src="./sounds/start-game.wav" preload="auto"></audio>
+    <script defer src="js/index.js"></script>
+</head>
+<body>
+    <div class="main-container">
+        <section class="stats-container">
+            <div class="round">
+                RUNDA 1
+            </div>
+           <div class="hearts-container">
+            <!-- <img class="heart" src="./img/heart.png" alt="heart"> -->
+            <!-- <a href="https://www.flaticon.com/free-icons/heart" title="heart icons">Heart icons created by Vlad Szirka - Flaticon</a> -->
+        </div>
+        <div class="points-container">
+            <!-- <div class="add-points">+10</div> -->
+            <div class="points">
+            </div>
+            <div class="record">REKORD: 34500</div>
+        </div>
+        </section>
+
+        <section class="letter-image-container">
+        <div class="letters-container">
+            <!-- <div class="letter">A</div> -->
+        </div>
+
+    <div class="img-container">
+        <img src="./img/IMG 1.jpg" alt="hangman image">
+    </div>
+</section>
+    <section class="password-container">
+        <span class="category">Kategoria: motto</span>
+        <div class="password"></div>
+        
+    </section>
+        <section class="next-round-container">
+            <div class="message-container">
+                <div class="next-round_title">RUNDA 1</div>
+                <div class="next-round_category">Twój wynik to milion</div>
+                <div class="next-round_password">Akutalny rekord: 8milionów</div>
+                <button class="start-next-round">KOLEJNA RUNDA</button>
+            </div>
+        </section>
+        <section class="game-over-container">
+            <div class="message-container">
+                <div class="game-over_title">GAME OVER</div>
+                <div class="game-over_result">Twój wynik to milion</div>
+                <div class="game-over_record">Akutalny rekord: 8milionów</div>
+                <div class="game-over_password"></div>
+                <button class="start-new-game">NOWA GRA</button>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>
