@@ -158,9 +158,10 @@ html {
 
 .hearts-container{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     height: 100%;
+    padding-left: 50px;
     width: 33%;
 }
 
