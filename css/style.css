@@ -237,9 +237,43 @@ html {
     letter-spacing: 3px;
     word-spacing: 10px;
 }
+/* Levels */
+.choose-level{
+    margin-bottom: 80px;
+}
+.levels-constainer{
+    display: flex;
+    flex-direction: column;
+}
+
+button.level {
+    border: none;
+    border-radius: 5px;
+    color: var(--black);
+    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+    padding: 15px 50px;
+}
+
+button.level:hover{
+  transform: translateY(-2px);
+}
+
+.easy {
+    background-color: rgb(25, 155, 25);
+}
+.medium{
+    background-color: #e6e6e6;
+}
+
+.hard{
+    background-color: rgb(204, 36, 36);
+}
 
 /* Next round */
-.next-round-container,.game-over-container{
+.start-game-container,.next-round-container,.game-over-container{
     align-items: center;
     background-color: rgba(61, 61, 61, 0.541);
     border-radius: 20px;
@@ -263,7 +297,6 @@ html {
     font-weight: 700;
 }
 
-
 /* GAME OVER */
 
 .display{
@@ -278,11 +311,11 @@ html {
     color: var(--black);
     display: flex;
     flex-direction: column;
-    height: 300px;
-    justify-content: space-around;
+    height: 80%;
+    justify-content: center;
     letter-spacing: 2px;
     text-shadow: var(--white) 1px 0px 0px;
-    width: 700px;
+    width: 80%;
     animation-duration: 1s;
     animation-name: tada;
 }

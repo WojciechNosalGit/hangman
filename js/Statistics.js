@@ -30,6 +30,10 @@ class Statistics {
     return this.#points;
   }
 
+  resetPoints() {
+    this.#points = 0;
+  }
+
   getChansesLeft() {
     return this.chanses - this.#wrongs;
   }

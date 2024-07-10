@@ -1,9 +1,9 @@
 class Keyboard {
-  #lettersABCD;
+  #letters;
   #lettersElements;
   constructor() {
-    this.#lettersABCD =
-      'a, ą, b, c, ć, d, e, ę, f, g, h, i, j, k, l, ł, m, n, o, ó, p, q, r, s, ś, t, u, v, w, x, y, z, ź, ż'
+    this.#letters =
+      'a, ą, b, c, ć, d, e, ę, f, g, h, i, j, k, l, ł, m, n, ń, o, ó, p, q, r, s, ś, t, u, v, w, x, y, z, ź, ż'
         .toUpperCase()
         .split(',');
 
@@ -16,25 +16,25 @@ class Keyboard {
 
   createLettersElements() {
     const elements = [];
-    this.#lettersABCD.forEach((letter) => {
+    this.#letters.forEach((letter) => {
       const letterElement = document.createElement('div');
       letterElement.classList.add('keyboard-letter');
-      letterElement.textContent = letter;
+      letterElement.textContent = letter.trim();
       elements.push(letterElement);
     });
     return elements;
   }
 
-  clicked() {
-    this.classList.add('clicked');
-  }
-
-  getKeyboard() {
+  getKeyboard(clickedLetters = []) {
+    //every time generate new keyboard and add class to clicked letters
     document.querySelector('.letters-container').textContent = '';
     this.#lettersElements.forEach((elem) => {
-      elem.classList.remove('clicked');
-      elem.removeEventListener('click', this.clicked);
-      elem.addEventListener('click', this.clicked);
+      if (clickedLetters.length === 0) {
+        elem.classList.remove('clicked');
+      }
+      if (elem.textContent === clickedLetters[clickedLetters.length - 1])
+        elem.classList.add('clicked');
+
       document.querySelector('.letters-container').appendChild(elem);
     });
   }

@@ -1,12 +1,14 @@
-//dodanie przyciusku 'odgaduję'
-// dodanie powitalnego okna
-//stworzenie grafiki wisielca
+// issue with points. at on the end of the round adding points witch shoudnt
+//turn of hover after click letter
+// make better css
 
 class Game {
   #chanses;
   #passwordArea;
   #pointsArea;
-  constructor(chanses) {
+  constructor(chanses, level) {
+    this.level = level;
+    //easy, medium, hard
     this.#chanses = chanses;
     this.#pointsArea = document.querySelector('.points');
     this.roundArea = document.querySelector('.round');
@@ -22,7 +24,15 @@ class Game {
     this.currentPass = this.password.pass.text;
     this.currentCategory = this.password.pass.category;
     this.clickedLetters = [];
+    this.startRound = true;
+    document.querySelector('.start-game-container').style.display = 'none';
 
+    this.sound('start-game-sound');
+    this.eventInit();
+    this.render(level);
+  }
+
+  eventInit() {
     this.keyboard.lettersElements.forEach((item) => {
       item.addEventListener('click', (e) => this.checkLetter(e));
     });
@@ -43,16 +53,22 @@ class Game {
           .querySelector('.next-round-container')
           .classList.remove('display');
       });
-
-    this.sound('start-game-sound');
-    this.render();
   }
+
   // On letter click
   checkLetter(e) {
-    const letter = e.target.textContent.trim();
+    function typeOfLetter() {
+      if (typeof e === 'string') return e.toUpperCase();
+      else return e.target.textContent.trim();
+    }
+    // this.startGame = false;
+    const letter = typeOfLetter();
+
     // if clicked
     if (this.clickedLetters.includes(letter)) return;
     this.clickedLetters.push(letter);
+
+    this.keyboard.getKeyboard(this.clickedLetters);
 
     const indexes = this.getCorrectLetterIndexInPass(letter);
 
@@ -81,12 +97,12 @@ class Game {
   }
 
   handleCorrectGeuss(indexes) {
+    this.#passwordArea.textContent = this.password.showCorrectLetter(indexes);
+    if (this.startRound) return;
     const points = indexes.length;
     this.sound('click-sound');
     this.draw.addPoints(points);
     this.#pointsArea.textContent = this.stats.addPoints(points);
-    this.#passwordArea.textContent = this.password.showCorrectLetter(indexes);
-
     //next round
     if (this.currentPass === this.password.hidePass) {
       this.nextRound(points);
@@ -146,16 +162,26 @@ class Game {
     clickSound.play();
   }
 
+  runLevel() {
+    console.log(this.currentPass);
+    const letters = this.password.showRandomLetters(5);
+    letters.forEach((letter) => this.checkLetter(letter));
+    if (this.startRound) this.stats.resetPoints();
+    this.startRound = false;
+  }
+
   render() {
     this.clickedLetters = [];
+    this.keyboard.getKeyboard();
     this.recordArea.textContent = `RECORD: ${this.stats.getRecord() || 0}`;
     this.roundArea.textContent = `Runda ${this.stats.round}`;
     this.categoryArea.textContent = `Kategoria: ${this.currentCategory}`;
-
     this.#passwordArea.textContent = this.password.hidePass;
     this.#pointsArea.textContent = this.stats.points;
     this.draw.showHangmanImmage(this.stats.wrongs);
     this.draw.showHarts(this.stats.getChansesLeft());
-    this.keyboard.getKeyboard();
+    this.runLevel();
   }
 }
+
+// const game = new Game(5);

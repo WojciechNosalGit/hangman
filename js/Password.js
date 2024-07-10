@@ -181,6 +181,7 @@ class Passwords {
   }
 
   showCorrectLetter(lettersIdx) {
+    if (!lettersIdx) return;
     // Skopiuj ukryte hasło do tablicy
     let currentHiddenPass = this.#hidenPass.split('');
 
@@ -192,5 +193,18 @@ class Passwords {
     // Złącz tablicę z powrotem w string i zwróć
     this.#hidenPass = currentHiddenPass.join('');
     return this.#hidenPass;
+  }
+
+  showRandomLetters(number) {
+    const letters = [];
+
+    for (let i = 0; i < number; i++) {
+      const random = Math.floor(Math.random() * this.pass.text.length);
+      const letter = this.pass.text[random].toUpperCase();
+      if (letters.includes(letter) || letter === ' ') i--;
+      else letters.push(letter);
+    }
+    // console.log(this.pass.text.length, letters);
+    return letters;
   }
 }
