@@ -26,12 +26,9 @@ class Statistics {
 
   addPoints(number = 0) {
     this.#points += number;
+    console.log(number);
     this.getRecord();
     return this.#points;
-  }
-
-  resetPoints() {
-    this.#points = 0;
   }
 
   getChansesLeft() {

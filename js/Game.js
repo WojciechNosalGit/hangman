@@ -1,5 +1,7 @@
-// issue with points. at on the end of the round adding points witch shoudnt
-//turn of hover after click letter
+// make better level method
+// othet sidgn in password
+// some issue after round 4th
+// issue wuth one shake heart
 // make better css
 
 class Game {
@@ -61,7 +63,6 @@ class Game {
       if (typeof e === 'string') return e.toUpperCase();
       else return e.target.textContent.trim();
     }
-    // this.startGame = false;
     const letter = typeOfLetter();
 
     // if clicked
@@ -98,7 +99,7 @@ class Game {
 
   handleCorrectGeuss(indexes) {
     this.#passwordArea.textContent = this.password.showCorrectLetter(indexes);
-    if (this.startRound) return;
+    if (this.startRound) return; // dont push points at the start of the round
     const points = indexes.length;
     this.sound('click-sound');
     this.draw.addPoints(points);
@@ -135,6 +136,8 @@ class Game {
       this.currentCategory,
       this.currentPass
     );
+    this.startRound = true; // next round true
+
     this.stats.addRound();
     this.stats.addPoints(100);
     this.draw.addPoints(100 + value);
@@ -166,8 +169,7 @@ class Game {
     console.log(this.currentPass);
     const letters = this.password.showRandomLetters(5);
     letters.forEach((letter) => this.checkLetter(letter));
-    if (this.startRound) this.stats.resetPoints();
-    this.startRound = false;
+    this.startRound = false; // add points during the round
   }
 
   render() {
