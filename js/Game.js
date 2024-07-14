@@ -41,7 +41,7 @@ class Game {
         document
           .querySelector('.game-over-container')
           .classList.remove('display');
-        this.draw.levelsScreen('.start-game-container');
+        new Game();
       });
 
     document
@@ -125,7 +125,7 @@ class Game {
     if (this.stats.wrongs === this.#chanses) {
       setTimeout(() => {
         this.gameOver();
-      }, 1500);
+      }, 1100);
     }
   }
 
@@ -184,7 +184,7 @@ class Game {
       else if (this.level === 'medium') return 0.3;
       else return 0;
     };
-    const maxShowedSymbols = Math.ceil(this.currentPass.length * level());
+    const maxShowedSymbols = Math.floor(this.currentPass.length * level());
 
     letters.forEach((letter) => {
       if (stillHidenPasswordLength() >= maxShowedSymbols) return;

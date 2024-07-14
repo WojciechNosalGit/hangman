@@ -249,7 +249,7 @@ html {
     align-items: center;
     background-color: var(--blue);
     border-radius: 20px;
-    display: flex;
+    display: none;
     height: 100%;
     justify-content: center;
     letter-spacing: 2px;
@@ -257,7 +257,10 @@ html {
     width: 100%;
     top: 0;
     left: 0;
-    /* display: none; */
+}
+
+.flex {
+    display: flex;
 }
 
 .start-game-message{
@@ -269,7 +272,6 @@ html {
     letter-spacing: 2px;
     text-shadow: var(--white) 1px 0px 0px;
     animation-duration: 1s;
-    /* animation-name: tada; */
 } 
 
 .choose-level{

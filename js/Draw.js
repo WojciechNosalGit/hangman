@@ -5,15 +5,12 @@ class Draw {
     this.image = document.querySelector('.img-container img');
     this.gameOverElement = document.querySelector('.game-over-container');
     this.hearts = [...document.querySelectorAll('.heart')];
-    // this.hearts = [];
     this.intervalIdx;
   }
 
   levelsScreen(operator) {
     const levelElement = document.querySelector(operator);
-    levelElement.style.display === 'none'
-      ? (levelElement.style.display = 'flex')
-      : (levelElement.style.display = 'none');
+    levelElement.classList.toggle('flex');
   }
 
   addPoints(value) {
