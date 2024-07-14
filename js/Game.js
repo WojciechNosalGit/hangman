@@ -1,6 +1,6 @@
-// make better level method
+// points depend on level
+// choose levels during the game
 // othet sidgn in password
-// some issue after round 4th
 // issue wuth one shake heart
 // make better css
 
@@ -29,9 +29,9 @@ class Game {
     this.startRound = true;
     document.querySelector('.start-game-container').style.display = 'none';
 
-    this.sound('start-game-sound');
     this.eventInit();
     this.render(level);
+    this.sound('start-game-sound');
   }
 
   eventInit() {
@@ -45,7 +45,7 @@ class Game {
         document
           .querySelector('.game-over-container')
           .classList.remove('display');
-        new Game(5);
+        new Game(5, this.level);
       });
 
     document
@@ -64,14 +64,13 @@ class Game {
       else return e.target.textContent.trim();
     }
     const letter = typeOfLetter();
+    const indexes = this.getCorrectLetterIndexInPass(letter);
 
     // if clicked
     if (this.clickedLetters.includes(letter)) return;
     this.clickedLetters.push(letter);
 
     this.keyboard.getKeyboard(this.clickedLetters);
-
-    const indexes = this.getCorrectLetterIndexInPass(letter);
 
     //if correct letter
     if (
@@ -99,7 +98,7 @@ class Game {
 
   handleCorrectGeuss(indexes) {
     this.#passwordArea.textContent = this.password.showCorrectLetter(indexes);
-    if (this.startRound) return; // dont push points at the start of the round
+    if (this.startRound) return; // don't push points at the start of the round
     const points = indexes.length;
     this.sound('click-sound');
     this.draw.addPoints(points);
@@ -167,9 +166,32 @@ class Game {
 
   runLevel() {
     console.log(this.currentPass);
-    const letters = this.password.showRandomLetters(5);
-    letters.forEach((letter) => this.checkLetter(letter));
-    this.startRound = false; // add points during the round
+    // chcek how many letter can see
+    const stillHidenPasswordLength = () => {
+      let number = 0;
+      for (let i = 0; i < this.#passwordArea.textContent.length - 1; i++) {
+        this.#passwordArea.textContent[i] !== '_' &&
+        this.#passwordArea.textContent[i] !== ''
+          ? number++
+          : number;
+      }
+      return number;
+    };
+    const letters = this.password.showRandomLetters(6); //arr with random letters from password. Don't need more then 6
+    const level = () => {
+      if (this.level === 'easy') return 0.6;
+      else if (this.level === 'medium') return 0.3;
+      else return 0;
+    };
+    const maxShowedSymbols = Math.ceil(this.currentPass.length * level());
+
+    letters.forEach((letter) => {
+      console.log(this.currentPass.length, maxShowedSymbols);
+      if (stillHidenPasswordLength() >= maxShowedSymbols) return;
+      //if we don't see enough letter try one more
+      this.checkLetter(letter);
+    });
+    this.startRound = false; // add points during the round after level start
   }
 
   render() {
@@ -185,5 +207,3 @@ class Game {
     this.runLevel();
   }
 }
-
-// const game = new Game(5);

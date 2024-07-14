@@ -129,7 +129,7 @@ class Passwords {
       { category: 'znane bydynki', text: 'Opera w Sydney' },
       { category: 'znane bydynki', text: 'Statua Wolności' },
       { category: 'znane bydynki', text: 'Wielki Mur Chiński' },
-      { category: 'znane bydynki', text: 'Katedra Notre-Dame' },
+      // { category: 'znane bydynki', text: 'Katedra Notre-Dame' },
       { category: 'znane bydynki', text: 'Wieża w Pizie' },
       { category: 'znane bydynki', text: 'Burj Khalifa' },
       { category: 'znane bydynki', text: 'Hagia Sophia' },
@@ -197,14 +197,16 @@ class Passwords {
 
   showRandomLetters(number) {
     const letters = [];
+    let blockInfiniteLoop = 40;
 
     for (let i = 0; i < number; i++) {
+      blockInfiniteLoop--;
+      if (!blockInfiniteLoop) break; // need to block infinite loop when password has less letters then number parameter
       const random = Math.floor(Math.random() * this.pass.text.length);
       const letter = this.pass.text[random].toUpperCase();
       if (letters.includes(letter) || letter === ' ') i--;
       else letters.push(letter);
     }
-    // console.log(this.pass.text.length, letters);
     return letters;
   }
 }
