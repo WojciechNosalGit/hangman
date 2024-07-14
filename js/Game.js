@@ -8,8 +8,7 @@ class Game {
   #passwordArea;
   #pointsArea;
   constructor(chanses, level) {
-    this.level = level;
-    //easy, medium, hard
+    this.level = level; //easy, medium, hard
     this.#chanses = chanses;
     this.#pointsArea = document.querySelector('.points');
     this.roundArea = document.querySelector('.round');
@@ -26,11 +25,9 @@ class Game {
     this.currentCategory = this.password.pass.category;
     this.clickedLetters = [];
     this.startRound = true;
-    document.querySelector('.start-game-container').style.display = 'none';
 
     this.eventInit();
-    this.render(level);
-    this.sound('start-game-sound');
+    this.init();
   }
 
   eventInit() {
@@ -44,7 +41,7 @@ class Game {
         document
           .querySelector('.game-over-container')
           .classList.remove('display');
-        new Game(5, this.level);
+        this.draw.levelsScreen('.start-game-container');
       });
 
     document
@@ -54,6 +51,12 @@ class Game {
           .querySelector('.next-round-container')
           .classList.remove('display');
       });
+  }
+
+  init() {
+    this.sound('start-game-sound');
+    this.draw.levelsScreen('.start-game-container');
+    this.render(this.level);
   }
 
   // On letter click
@@ -164,7 +167,6 @@ class Game {
   }
 
   runLevel() {
-    console.log(this.currentPass);
     // chcek how many letter can see
     const stillHidenPasswordLength = () => {
       let number = 0;
@@ -185,7 +187,6 @@ class Game {
     const maxShowedSymbols = Math.ceil(this.currentPass.length * level());
 
     letters.forEach((letter) => {
-      console.log(this.currentPass.length, maxShowedSymbols);
       if (stillHidenPasswordLength() >= maxShowedSymbols) return;
       //if we don't see enough letter try one more
       this.checkLetter(letter);
