@@ -2,7 +2,6 @@
 // choose levels during the game
 // othet sidgn in password
 // issue wuth one shake heart
-// make better css
 
 class Game {
   #chanses;
