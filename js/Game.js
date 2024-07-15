@@ -2,6 +2,7 @@
 // choose levels during the game
 // othet sidgn in password
 // issue wuth one shake heart
+// bug width 5 letter passwords
 
 class Game {
   #chanses;
@@ -104,7 +105,9 @@ class Game {
     const points = indexes.length;
     this.sound('click-sound');
     this.draw.addPoints(points);
-    this.#pointsArea.textContent = this.stats.addPoints(points);
+    setTimeout(() => {
+      this.#pointsArea.textContent = this.stats.addPoints(points);
+    }, 650);
     //next round
     if (this.currentPass === this.password.hidePass) {
       this.nextRound(points);
