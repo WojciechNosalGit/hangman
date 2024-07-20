@@ -6,11 +6,6 @@
     --white:#d2dae2;
 
 }
-
-/* @font-face {
-    font-family: 'VT323';
-    src: url('./VT323-Regular.ttf');
-} */
 /* @font-face {
     font-family: 'MightySouly';
     src: url('./MightySouly-lxggD.ttf');
@@ -93,23 +88,22 @@ html {
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.12) -6px 8px 3px, rgba(0, 0, 0, 0.24) -3px 2px 2px;
     left: 50%;
-    height: 560px;
+    height: 540px;
     overflow: hidden;
     position: absolute;
     top: 50%;
     transform: translate(-50%,-50%);
-    width: 840px;
+    width: 800px;
 }
 
 /* LETTERS */
 .letters-container{
     display: flex;
     flex-wrap: wrap;
-    height: 320px;
+    height: 280px;
     justify-content: center;
     align-items: center;
-    padding: 20px 10px 20px 20px;
-    width: 44%;
+    width: 360px;
 }
 
 .keyboard-letter {
@@ -222,22 +216,29 @@ html {
 }
 /* IMG */
 .img-container {
-    width: 350px;
-    height: 350px;
+    height: 300px;
+    width: 300px;
 }
 
 .img-container img {
     height: 100%;
+    margin-top: 12px;
     width: 100%;
 }
 /* PASSWORD */
 .password-container {
+    display: flex;
+    flex-direction: column;
     font-size: 1.8rem;
+    height: 140px;
+    justify-content: center;
     padding: 0 20px;
     text-align: center;
 }
 .category{
+    display: inline-block;
     font-size: 1.4rem;
+    margin-bottom: 10px;
 }
 .password{
     letter-spacing: 3px;
