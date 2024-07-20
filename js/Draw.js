@@ -48,10 +48,13 @@ class Draw {
     //shake random heart
     const shakeRandomHeart = () => {
       if (this.hearts.length === 0) return;
-      const random = Math.floor(Math.random() * this.hearts.length);
+      const randomHeart = Math.floor(Math.random() * this.hearts.length);
       this.hearts.forEach((heart) => heart.classList.remove('shake'));
-      this.hearts[random].classList.add('shake');
-      //to set deferent time
+      //lettle deley befor add 'shake' css class. It solves issue with not shaking the same haert
+      setTimeout(() => {
+        this.hearts[randomHeart].classList.add('shake');
+      }, 0);
+      //to set defferent time
       clearInterval(this.intervalIdx);
       this.intervalIdx = setInterval(shakeRandomHeart, randomShake(3000));
     };
@@ -63,18 +66,24 @@ class Draw {
     lastElement.classList.add('lost-heart');
   }
 
-  displayNextRoundWindow(round, category, password) {
+  displayNextRoundWindow(round, category, password, quote) {
     document.querySelector('.next-round-container').classList.add('display');
+
     document.querySelector('.next-round_title').textContent = `Runda ${round}`;
     document.querySelector(
       '.next-round_category'
     ).textContent = `Kategoria: ${category}`;
-    document.querySelector(
-      '.next-round_password'
-    ).textContent = `Hasło: ${password}`;
+    document.querySelector('.next-round_password').textContent = quote
+      ? `Hasło: ${password} - ${quote}`
+      : `Hasło: ${password}`;
   }
 
-  displayGameOverWindow(points, record, password = 'Nie odgadłeś hasła') {
+  displayGameOverWindow(
+    points,
+    record,
+    password = 'Nie odgadłeś hasła',
+    quote
+  ) {
     this.gameOverElement.classList.add('display');
 
     document.querySelector(
@@ -83,8 +92,8 @@ class Draw {
     document.querySelector(
       '.game-over_record'
     ).textContent = `Akutalny rekord: ${record}`;
-    document.querySelector(
-      '.game-over_password'
-    ).textContent = `Hasło: ${password}`;
+    document.querySelector('.game-over_password').textContent = quote
+      ? `Hasło: ${password} - ${quote}`
+      : `Hasło: ${password}`;
   }
 }

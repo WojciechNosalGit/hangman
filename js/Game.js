@@ -1,9 +1,3 @@
-// points depend on level
-// choose levels during the game
-// othet sidgn in password
-// issue wuth one shake heart
-// bug width 5 letter passwords
-
 class Game {
   #chanses;
   #passwordArea;
@@ -22,8 +16,9 @@ class Game {
     this.stats = new Statistics(this.#chanses);
     this.draw = new Draw(this.#chanses);
 
-    this.currentPass = this.password.pass.text;
+    this.currentPassText = this.password.pass.text;
     this.currentCategory = this.password.pass.category;
+    this.currentQuote = this.password.pass.quote;
     this.clickedLetters = [];
     this.startRound = true;
 
@@ -57,7 +52,7 @@ class Game {
   init() {
     this.sound('start-game-sound');
     this.draw.levelsScreen('.start-game-container');
-    this.render(this.level);
+    this.render();
   }
 
   // On letter click
@@ -90,7 +85,7 @@ class Game {
 
   getCorrectLetterIndexInPass(letter) {
     const indexes = [];
-    this.currentPass
+    this.currentPassText
       .toUpperCase()
       .split('')
       .forEach((elem, idx) => {
@@ -107,9 +102,9 @@ class Game {
     this.draw.addPoints(points);
     setTimeout(() => {
       this.#pointsArea.textContent = this.stats.addPoints(points);
-    }, 650);
+    }, 650); // smooth change of points
     //next round
-    if (this.currentPass === this.password.hidePass) {
+    if (this.currentPassText === this.password.hidePass) {
       this.nextRound(points);
     }
   }
@@ -134,24 +129,32 @@ class Game {
 
   nextRound(value) {
     this.sound('next-round-sound');
+
+    //set points at the end of the round
+    const nextRoundPoints = () => {
+      if (this.level === 'easy') return 60;
+      if (this.level === 'medium') return 80;
+      else return 100;
+    };
     //displayWindow
     this.draw.displayNextRoundWindow(
       this.stats.round,
       this.currentCategory,
-      this.currentPass
+      this.currentPassText,
+      this.currentQuote
     );
     this.startRound = true; // next round true
 
     this.stats.addRound();
-    this.stats.addPoints(100);
-    this.draw.addPoints(100 + value);
+    this.stats.addPoints(nextRoundPoints());
+    this.draw.addPoints(nextRoundPoints() + value);
     this.resetPassword();
     this.render();
   }
 
   resetPassword() {
     this.password = new Passwords(); // Create a new instance of Passwords
-    this.currentPass = this.password.pass.text; // Assign a new password
+    this.currentPassText = this.password.pass.text; // Assign a new password
     this.currentCategory = this.password.pass.category; // Asign a new category
   }
 
@@ -160,7 +163,8 @@ class Game {
     this.draw.displayGameOverWindow(
       this.stats.points,
       this.stats.getRecord(),
-      this.currentPass
+      this.currentPassText,
+      this.currentQuote
     );
   }
 
@@ -187,7 +191,11 @@ class Game {
       else if (this.level === 'medium') return 0.3;
       else return 0;
     };
-    const maxShowedSymbols = Math.floor(this.currentPass.length * level());
+    // Maximum letter to show
+    const maxShowedSymbols =
+      this.currentPassText.length <= 5
+        ? 2
+        : Math.floor(this.currentPassText.length * level());
 
     letters.forEach((letter) => {
       if (stillHidenPasswordLength() >= maxShowedSymbols) return;
