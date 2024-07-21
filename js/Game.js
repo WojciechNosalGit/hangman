@@ -156,6 +156,7 @@ class Game {
     this.password = new Passwords(); // Create a new instance of Passwords
     this.currentPassText = this.password.pass.text; // Assign a new password
     this.currentCategory = this.password.pass.category; // Asign a new category
+    this.currentQuote = this.password.pass.quote;
   }
 
   gameOver() {
