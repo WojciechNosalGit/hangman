@@ -79,7 +79,7 @@ const slogans = [
   },
   {
     category: 'przysłowie',
-    text: 'Nie śmiej się bratku z cidzego wypadku',
+    text: 'Nie śmiej się bratku z cudzego wypadku',
   },
   {
     category: 'przysłowie',

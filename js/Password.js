@@ -27,6 +27,7 @@ class Passwords {
       if (letter === ' ') letter = ' ';
       else if (letter === ',') letter = ',';
       else if (letter === '.') letter = '.';
+      else if (letter === '-') letter = '-';
       else letter = '_';
       return letter;
     });
